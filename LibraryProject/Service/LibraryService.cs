@@ -54,17 +54,22 @@ namespace LibraryProject.Service
             return existuser.Adapt < LibraryDto>();
 
         }
-        public async Task<LibraryDto> UpdateAsync(Library library)
+        public async Task<LibraryDto> UpdateAsync(int id )
         {
+            var existclinic=await _librepo.GetByIdAsync(id);
+            if (existclinic == null)
+            {
+                throw new Exception("there is no library using this id");
+            }
             var updatedlib = new Library
             {
-                Name= library.Name,
-                Address= library.Address,
-                PhoneNumber= library.PhoneNumber,
-                ClosingTime= library.ClosingTime,
-                OpeningTime= library.OpeningTime,
-                OwnerId= library.OwnerId,
-                Description = library.Description,
+                Name= existclinic.Name,
+                Address= existclinic.Address,
+                PhoneNumber= existclinic.PhoneNumber,
+                ClosingTime= existclinic.ClosingTime,
+                OpeningTime= existclinic.OpeningTime,
+                OwnerId= existclinic.OwnerId,
+                Description = existclinic.Description,
 
             };
            await _librepo.UdpdateLibraryAsync(updatedlib);
