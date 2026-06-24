@@ -24,6 +24,11 @@ namespace LibraryProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                if(!string.Equals(user.Role, "User", StringComparison.OrdinalIgnoreCase)&&
+                    !string.Equals(user.Role, "LibraryOwner", StringComparison.OrdinalIgnoreCase))
+                {
+                    return BadRequest("Invalid Role");
+                }
                 Appuser existuser = await _userManager.FindByEmailAsync(user.Email);
                 if (existuser != null) { return BadRequest("you alredy haver an account"); }
                 var appuser = new Appuser
@@ -37,7 +42,8 @@ namespace LibraryProject.Controllers
                 var created = await _userManager.CreateAsync(appuser, user.Password);
                 if (created.Succeeded)
                 {
-                    var addrole = await _userManager.AddToRoleAsync(appuser, user.Role);
+                    var role = user.Role.Equals("LibraryOwner", StringComparison.OrdinalIgnoreCase) ? "LibraryOwner" : "User";
+                    var addrole = await _userManager.AddToRoleAsync(appuser, role);
                     return Ok(await _token.CreateTokenAsync(appuser));
                 }
                 if (!created.Succeeded)
@@ -49,7 +55,7 @@ namespace LibraryProject.Controllers
 
 
             }
-            return BadRequest();
+            return BadRequest("Register Failed");
         }
         [HttpPost("login")]
         public async Task<IActionResult> login_User(Login user)
@@ -61,7 +67,7 @@ namespace LibraryProject.Controllers
 
                 if (await _userManager.CheckPasswordAsync(existuser, user.Password))
                 {
-                    return Ok(user);
+                    return Ok(await _token.CreateTokenAsync(existuser));
                 }
                 else {
                     return Unauthorized();

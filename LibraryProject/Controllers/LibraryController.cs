@@ -43,7 +43,7 @@ namespace LibraryProject.Controllers
         [HttpDelete("DeleteLibrary")]
         public async Task<IActionResult> DeleteLibrary(int Id) {
             var ownerid = User.FindFirstValue(ClaimTypes.NameIdentifier);
-           var resualt= await _libraryService.DeleteAsync(Id,ownerid);
+           var resualt= await _libraryService.DeleteAsync(Id);
             if (resualt == true)
             {
                 return Ok("Library deleted succsesfully");
