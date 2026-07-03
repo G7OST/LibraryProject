@@ -1,11 +1,15 @@
-﻿namespace LibraryProject.Interface.SectionInterface
+﻿
+
+using LibraryProject.Models;
+
+namespace LibraryProject.Interface.SectionInterface
 {
-    public class ISectionRepository
+    public interface ISectionRepository
     {
-        Task<Section> CreateSection(Section section);
+        Task<Section> CreateSectionAsync(Section section);
         Task<List<Section>> GetAllSectionsAsync();
-        Task<Section> GetSectionByID(int id);
+        Task<Section> GetSectionByIDAsync(int id);
         Task<bool> UpdateSectionAsync(Section section);
-        Task<bool> DeleteSection(Section section);
+        Task<bool> DeleteSectionAsync(Section section);
     }
 }

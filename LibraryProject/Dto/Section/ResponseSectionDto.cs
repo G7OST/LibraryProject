@@ -2,11 +2,14 @@
 
 namespace LibraryProject.Dto.Section
 {
-    public class SectionDto
+    public class ResponseSectionDto
     {
-        [Required]
+        
+        public int SectionId { get; set; }
+        
         public string Name { get; set; }
-        [Required]
         public int LibraryId { get; set; }
+
+
     }
 }
