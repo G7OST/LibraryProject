@@ -38,5 +38,13 @@ namespace LibraryProject.Service
            var result= await _sectionRepo.GetSectionByIDAsync(sectionDto.LibraryId);
             return result.Adapt<ResponseSectionDto>();
         }
+        public async Task<bool> DeleteSectionAsync(int LibId,int SecId) {
+            Section section=await _sectionRepo.GetSectionByIDAsync(SecId);
+            if(section == null) { throw new KeyNotFoundException("Invalid section_Id"); }
+            var result = false;
+            if (section.LibraryId == LibId) { result = await _sectionRepo.DeleteSectionAsync(section); }
+            if (result == false) { throw new KeyNotFoundException("Invalid Section"); }
+            return true;
+        }
     }
 }
