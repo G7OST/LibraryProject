@@ -38,6 +38,10 @@ namespace LibraryProject.Service
            var result= await _sectionRepo.GetSectionByIDAsync(sectionDto.LibraryId);
             return result.Adapt<ResponseSectionDto>();
         }
+        public async Task<List<ResponseSectionDto>>getAllSectionsByLibId(int Lib_id)
+        {
+            return await _sectionRepo.GetAllSectionsByLibIdAsync(Lib_id);
+        }
         public async Task<bool> DeleteSectionAsync(int LibId,int SecId) {
             Section section=await _sectionRepo.GetSectionByIDAsync(SecId);
             if(section == null) { throw new KeyNotFoundException("Invalid section_Id"); }
@@ -45,6 +49,21 @@ namespace LibraryProject.Service
             if (section.LibraryId == LibId) { result = await _sectionRepo.DeleteSectionAsync(section); }
             if (result == false) { throw new KeyNotFoundException("Invalid Section"); }
             return true;
+        }
+        public async Task<bool>updateSection(int Sec_id,int lib_id,UpdateSectionDto sectionDto)
+        {
+            Section existSeciton = await _sectionRepo.GetSectionByIDAsync(Sec_id);
+            if (existSeciton == null) { return false; }
+            
+            if (existSeciton.LibraryId !=lib_id)
+            {
+                return false;
+            }
+            existSeciton.Name = sectionDto.Name;
+            var res=await _sectionRepo.UpdateSectionAsync(existSeciton);
+            return true;
+
+
         }
     }
 }

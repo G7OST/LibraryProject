@@ -25,7 +25,11 @@ namespace LibraryProject.Repository
         public async Task<List<ResponseBookDto>> GetBooksBySectionId(int id)
         {
             var books= await _db.Book.Where(op=>op.SectionId==id).ToListAsync();
-            return books.Adapt<List<ResponseBookDto>>();
+            return books.Adapt<List<ResponseBookDto>>() ;
+        }
+        public async Task<bool> DeleteAsync(Book book) { 
+             _db.Book.Remove(book);
+            return true;
         }
 
     }

@@ -7,7 +7,7 @@ namespace LibraryProject.Interface.LibraryInterface
     {
         Task<LibraryDto> CreateLibraryAsync(LibraryDto library, string owenerId);
         Task<bool> DeleteAsync(int id);
-        Task<LibraryDto> UpdateAsync(int id);
+        Task<LibraryDto> UpdateAsync(int id,LibraryDto libraryDto);
         Task<LibraryDto> GetByidAsync(int id);
         Task<List<LibraryDto>> GetAllAsync();
 

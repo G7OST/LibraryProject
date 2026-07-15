@@ -39,7 +39,11 @@ namespace LibraryProject.Repository
             await _db.SaveChangesAsync();
             return true;
         }
-
+        public async Task<List<ResponseSectionDto>>GetAllSectionsByLibIdAsync(int id)
+        {
+            var result=await _db.Section.Where(o => o.LibraryId == id).ToListAsync();
+            return  result.Adapt<List<ResponseSectionDto>>();
+        }
 
     }
 }

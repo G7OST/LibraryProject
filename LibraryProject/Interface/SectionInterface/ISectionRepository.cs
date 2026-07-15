@@ -1,5 +1,6 @@
 ﻿
 
+using LibraryProject.Dto.Section;
 using LibraryProject.Models;
 
 namespace LibraryProject.Interface.SectionInterface
@@ -11,5 +12,6 @@ namespace LibraryProject.Interface.SectionInterface
         Task<Section> GetSectionByIDAsync(int id);
         Task<bool> UpdateSectionAsync(Section section);
         Task<bool> DeleteSectionAsync(Section section);
+        Task<List<ResponseSectionDto>> GetAllSectionsByLibIdAsync(int id);
     }
 }

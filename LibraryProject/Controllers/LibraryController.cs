@@ -52,9 +52,9 @@ namespace LibraryProject.Controllers
             return BadRequest("invalid id");
         }
         [HttpPut("UpdateLibrary")]
-        public async Task<IActionResult> UpdateLibrary(int id)
+        public async Task<IActionResult> UpdateLibrary(int id,LibraryDto libraryDto)
         {
-            var resualt = await _libraryService.UpdateAsync(id);
+            var resualt = await _libraryService.UpdateAsync(id,libraryDto);
             return Ok(resualt);
         }
         
