@@ -1,5 +1,6 @@
 
 using LibraryProject.Data;
+using LibraryProject.Interface.BookInterface;
 using LibraryProject.Interface.LibraryInterface;
 using LibraryProject.Interface.SectionInterface;
 using LibraryProject.Interface.TokenInterface;
@@ -30,6 +31,7 @@ namespace LibraryProject
             builder.Services.AddScoped<IToken, TokenService>();
             builder.Services.AddScoped<ISectionRepository, SectionRepository>();
             builder.Services.AddScoped<ISectionService, SectionService>();
+            builder.Services.AddScoped<IBookRepository, BookRepository>();
             var app = builder.Build();
             using (var scope = app.Services.CreateScope())
             {
